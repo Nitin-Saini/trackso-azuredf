@@ -1,0 +1,78 @@
+{
+	"name": "AzureSqlTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Timestamp",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "Daily_Energy",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "Daily_Runtime",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "Fault_Code",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Input_DC_Power",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "Inverter_State",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "Output_Active_Power",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "Output_Power_on_Phase_1",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "Output_Power_on_Phase_2",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "Output_Power_on_Phase_3",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "Total_Energy",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "Total_Runtime",
+				"type": "float",
+				"precision": 15
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "t_763f323674"
+		}
+	}
+}

@@ -1,0 +1,55 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					},
+					"name": "source2"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					},
+					"name": "source3"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Aggregate1"
+				},
+				{
+					"name": "Aggregate2"
+				},
+				{
+					"name": "Aggregate3"
+				},
+				{
+					"name": "Union1"
+				}
+			],
+			"script": "source(output(\n\t\tTimestamp as timestamp,\n\t\tDaily_Energy as double,\n\t\tDaily_Runtime as double,\n\t\tFault_Code as integer,\n\t\tInput_DC_Power as double,\n\t\tInverter_State as double,\n\t\tOutput_Active_Power as double,\n\t\tOutput_Power_on_Phase_1 as double,\n\t\tOutput_Power_on_Phase_2 as double,\n\t\tOutput_Power_on_Phase_3 as double,\n\t\tTotal_Energy as double,\n\t\tTotal_Runtime as double\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> source1\nsource(output(\n\t\tTimestamp as timestamp,\n\t\tDaily_Energy as double,\n\t\tDaily_Runtime as double,\n\t\tFault_Code as integer,\n\t\tInput_DC_Power as double,\n\t\tInverter_State as double,\n\t\tOutput_Active_Power as double,\n\t\tOutput_Power_on_Phase_1 as double,\n\t\tOutput_Power_on_Phase_2 as double,\n\t\tOutput_Power_on_Phase_3 as double,\n\t\tTotal_Energy as double,\n\t\tTotal_Runtime as double\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> source2\nsource(output(\n\t\tTimestamp as timestamp,\n\t\tDaily_Energy as double,\n\t\tDaily_Runtime as double,\n\t\tFault_Code as integer,\n\t\tInput_DC_Power as double,\n\t\tInverter_State as double,\n\t\tOutput_Active_Power as double,\n\t\tOutput_Power_on_Phase_1 as double,\n\t\tOutput_Power_on_Phase_2 as double,\n\t\tOutput_Power_on_Phase_3 as double,\n\t\tTotal_Energy as double,\n\t\tTotal_Runtime as double\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> source3\nsource1 aggregate(groupBy(Daily_Energy)) ~> Aggregate1\nsource2 aggregate(groupBy(Daily_Energy)) ~> Aggregate2\nsource3 aggregate(groupBy(Daily_Energy)) ~> Aggregate3\nAggregate1, Aggregate2, Aggregate3 union(byName: true)~> Union1\nUnion1 sink(input(\n\t\tTimestamp as timestamp,\n\t\tDaily_Energy as double,\n\t\tDaily_Runtime as double,\n\t\tFault_Code as integer,\n\t\tInput_DC_Power as double,\n\t\tInverter_State as double,\n\t\tOutput_Active_Power as double,\n\t\tOutput_Power_on_Phase_1 as double,\n\t\tOutput_Power_on_Phase_2 as double,\n\t\tOutput_Power_on_Phase_3 as double,\n\t\tTotal_Energy as double,\n\t\tTotal_Runtime as double\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
+		}
+	}
+}
